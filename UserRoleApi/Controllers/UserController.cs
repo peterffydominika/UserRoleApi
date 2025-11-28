@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UserRoleApi.Models;
 using UserRoleApi.Models.Dtos;
 
 namespace UserRoleApi.Controllers
@@ -14,6 +15,30 @@ namespace UserRoleApi.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> AddNewUser(AddUserDto addUserDto)
+        {
+            try
+            {
+                var user = new User
+                {
+                    Id = Guid.NewGuid(),
+                    Name = addUserDto.Name,
+                    Email = addUserDto.Email,
+                    Password = addUserDto.Password
+                };
+                if (user != null)
+                {
+                    await _context.users.AddAsync(user);
+                    await _context.SaveChangesAsync();
+                    return StatusCode(201, new { message = "Sikeres hozzáadás!", result = user} );
+                }
+                return StatusCode(404, new { message = "Sikertelen hozzáadás!", result = user });
+            }
+            catch (Exception ex)
+            {
 
+                return StatusCode(400, new { message = ex.Message });
+            }
+        }
     }
 }
