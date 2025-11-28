@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UserRoleApi.Models;
 using UserRoleApi.Models.Dtos;
 
@@ -37,6 +38,37 @@ namespace UserRoleApi.Controllers
             catch (Exception ex)
             {
 
+                return StatusCode(400, new { message = ex.Message });
+            }
+        }
+        [HttpGet]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            try
+            {
+                return Ok(new { message = "Sikeres lekérdezés!", result = await _context.users.ToListAsync() });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message });
+            }
+        }
+        [HttpDelete("DeleteById")]
+        public async Task<ActionResult> DeleteUserById(Guid id)
+        {
+            try
+            {
+                var user = _context.users.FirstOrDefault(x => x.Id == id);
+                if (user != null)
+                {
+                    _context.users.Remove(user);
+                    await _context.SaveChangesAsync();
+                    return Ok(new { message = "Sikeres törlés!", result = user });
+                }
+                return NotFound(new { message = "Nincs ilyen id!", result = user });
+            }
+            catch (Exception ex)
+            {
                 return StatusCode(400, new { message = ex.Message });
             }
         }
