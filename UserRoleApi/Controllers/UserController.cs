@@ -72,5 +72,26 @@ namespace UserRoleApi.Controllers
                 return StatusCode(400, new { message = ex.Message });
             }
         }
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(Guid id, UpdateUserDto updateUserDto)
+        {
+            try
+            {
+                var user = await _context.users.FirstOrDefaultAsync(x => x.Id == id);
+                if (user != null)
+                {
+                    user.Name = updateUserDto.Name;
+                    user.Email = updateUserDto.Email;
+                    user.Password = updateUserDto.Password;
+                    await _context.SaveChangesAsync();
+                    return Ok(new { message = "Sikeres módosítás!", result = user });
+                }
+                return NotFound(new { message = "Nincs ilyen id!", result = user });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { message = ex.Message });
+            }
+        }
     }
 }

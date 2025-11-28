@@ -11,7 +11,7 @@ using UserRoleApi.Models.Dtos;
 namespace UserRoleApi.Migrations
 {
     [DbContext(typeof(UserRoleDbContext))]
-    [Migration("20251128071526_CreateDbWithTables")]
+    [Migration("20251128102426_CreateDbWithTables")]
     partial class CreateDbWithTables
     {
         /// <inheritdoc />
@@ -21,21 +21,6 @@ namespace UserRoleApi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.22")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("RoleUser", b =>
-                {
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("RolesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("RoleUser");
-                });
 
             modelBuilder.Entity("UserRoleApi.Models.Role", b =>
                 {
@@ -50,6 +35,21 @@ namespace UserRoleApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("roles");
+                });
+
+            modelBuilder.Entity("UserRoleApi.Models.RoleUser", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("roleuser");
                 });
 
             modelBuilder.Entity("UserRoleApi.Models.User", b =>
@@ -75,19 +75,33 @@ namespace UserRoleApi.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("RoleUser", b =>
+            modelBuilder.Entity("UserRoleApi.Models.RoleUser", b =>
                 {
-                    b.HasOne("UserRoleApi.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
+                    b.HasOne("UserRoleApi.Models.Role", "Role")
+                        .WithMany("RoleUsers")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UserRoleApi.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
+                    b.HasOne("UserRoleApi.Models.User", "User")
+                        .WithMany("RoleUsers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserRoleApi.Models.Role", b =>
+                {
+                    b.Navigation("RoleUsers");
+                });
+
+            modelBuilder.Entity("UserRoleApi.Models.User", b =>
+                {
+                    b.Navigation("RoleUsers");
                 });
 #pragma warning restore 612, 618
         }
