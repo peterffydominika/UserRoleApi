@@ -48,6 +48,22 @@
   },
   {
     "ContainingType": "UserRoleApi.Controllers.RoleController",
+    "Method": "GetCountOfUsersInRole",
+    "RelativePath": "api/Role/CountOfUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserRoleApi.Controllers.RoleController",
     "Method": "DeleteRoleById",
     "RelativePath": "api/Role/DeleteById",
     "HttpMethod": "DELETE",
@@ -88,8 +104,24 @@
     "Parameters": [
       {
         "Name": "roleUser",
-        "Type": "UserRoleApi.Models.Dtos.AddNewSwitchDto",
+        "Type": "UserRoleApi.Models.RoleUser",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserRoleApi.Controllers.RoleUserController",
+    "Method": "DeleteRoleFromUser",
+    "RelativePath": "api/RoleUser/DeleteRoleFromUser",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

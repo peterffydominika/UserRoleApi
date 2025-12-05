@@ -155,5 +155,23 @@ namespace UserRoleApi.Controllers
                 });
             }
         }
+        [HttpGet("CountOfUsers")]
+        public async Task<ActionResult> GetCountOfUsersInRole(Guid id)
+        {
+            try
+            {
+                var countOfUsers = await _context.roleuser
+                    .Where(ru => ru.RoleId == id)
+                    .CountAsync();
+                return Ok(new { message = "Sikeres lekérdezés!", result = countOfUsers });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

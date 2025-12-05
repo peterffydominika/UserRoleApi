@@ -129,6 +129,28 @@
         }
       }
     },
+    "/api/Role/CountOfUsers": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/RoleUser": {
       "post": {
         "tags": [
@@ -138,21 +160,43 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddNewSwitchDto"
+                "$ref": "#/components/schemas/RoleUser"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddNewSwitchDto"
+                "$ref": "#/components/schemas/RoleUser"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AddNewSwitchDto"
+                "$ref": "#/components/schemas/RoleUser"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/RoleUser/DeleteRoleFromUser": {
+      "delete": {
+        "tags": [
+          "RoleUser"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -287,20 +331,6 @@
   },
   "components": {
     "schemas": {
-      "AddNewSwitchDto": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "roleId": {
-            "type": "string",
-            "format": "uuid"
-          }
-        },
-        "additionalProperties": false
-      },
       "AddRoleDto": {
         "type": "object",
         "properties": {
@@ -329,6 +359,47 @@
         },
         "additionalProperties": false
       },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "roleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleUsers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleUser"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleUser": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "roleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateRoleDto": {
         "type": "object",
         "properties": {
@@ -352,6 +423,35 @@
           },
           "password": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleUsers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleUser"
+            },
             "nullable": true
           }
         },
