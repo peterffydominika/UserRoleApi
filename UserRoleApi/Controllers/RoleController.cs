@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 using UserRoleApi.Models;
 using UserRoleApi.Models.Dtos;
 
@@ -120,6 +121,31 @@ namespace UserRoleApi.Controllers
                     message = "Nincs ilyen id!",
                     result = role
                 });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
+        [HttpGet("RoleWithUsers")]
+        public async Task<ActionResult> GetRolesWithUsers(Guid id)
+        {
+            try
+            {
+                var rolesWithUsers =  await _context.roleuser
+                    .Where(ru => ru.RoleId == id)
+                    .Include(ru => ru.User)
+                    .Select(ru => ru.User.Name)
+                    .ToListAsync();
+
+                if (rolesWithUsers != null)
+                {
+                    return StatusCode(200, new { message = "Sikeres lekérdezés!", result  = rolesWithUsers });
+                }
+                return NotFound(new { message = "Nincs ilyen id!", result = rolesWithUsers });
             }
             catch (Exception ex)
             {

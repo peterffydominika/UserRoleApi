@@ -98,8 +98,17 @@ namespace UserRoleApi.Controllers
         {
             try
             {
-                var usersWithRoles = _context.users.Include(u => u.RoleUsers).FirstOrDefault(y => y.Id == id);
-                return Ok(new { message = "Sikeres lekérdezés!", result = usersWithRoles });
+                var usersWithRoles = _context.users
+                    .Include(u => u.RoleUsers)
+                    .ThenInclude(ru => ru.Role)
+                    .FirstOrDefault(y => y.Id == id);
+
+                var userResult = new
+                {
+                    UserName = usersWithRoles.Name,
+                    Role = usersWithRoles.RoleUsers.Select(x => x.Role.RoleName)
+                };
+                return Ok(new { message = "Sikeres lekérdezés!", result = userResult });
             }
             catch (Exception ex)
             {

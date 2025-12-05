@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "L4fO4Kq2Ip8=",
+  "dgSpecHash": "HAdQ8Zt932w=",
   "success": true,
-  "projectFilePath": "C:\\Users\\peterffyd\\Desktop\\Backend\\APIs\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj",
+  "projectFilePath": "C:\\Users\\peterffyd\\Source\\Repos\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\peterffyd\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
     "C:\\Users\\peterffyd\\.nuget\\packages\\google.protobuf\\3.32.0\\google.protobuf.3.32.0.nupkg.sha512",

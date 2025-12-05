@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\peterffyd\\Desktop\\Backend\\APIs\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj": {}
+    "C:\\Users\\peterffyd\\Source\\Repos\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\peterffyd\\Desktop\\Backend\\APIs\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj": {
+    "C:\\Users\\peterffyd\\Source\\Repos\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\peterffyd\\Desktop\\Backend\\APIs\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj",
+        "projectUniqueName": "C:\\Users\\peterffyd\\Source\\Repos\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj",
         "projectName": "UserRoleApi",
-        "projectPath": "C:\\Users\\peterffyd\\Desktop\\Backend\\APIs\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj",
+        "projectPath": "C:\\Users\\peterffyd\\Source\\Repos\\UserRoleApi\\UserRoleApi\\UserRoleApi.csproj",
         "packagesPath": "C:\\Users\\peterffyd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\peterffyd\\Desktop\\Backend\\APIs\\UserRoleApi\\UserRoleApi\\obj\\",
+        "outputPath": "C:\\Users\\peterffyd\\Source\\Repos\\UserRoleApi\\UserRoleApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
