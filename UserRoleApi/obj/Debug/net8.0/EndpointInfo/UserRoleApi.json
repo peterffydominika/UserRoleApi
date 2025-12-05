@@ -180,16 +180,14 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/RoleUser/DeleteRoleFromUser": {
+      },
       "delete": {
         "tags": [
           "RoleUser"
         ],
         "parameters": [
           {
-            "name": "userId",
+            "name": "userid",
             "in": "query",
             "schema": {
               "type": "string",
@@ -197,6 +195,59 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/RoleUser/addRolestouser": {
+      "post": {
+        "tags": [
+          "RoleUser"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -307,6 +358,28 @@
       }
     },
     "/api/User/userWithRoles": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/userWithMostRoles": {
       "get": {
         "tags": [
           "User"
