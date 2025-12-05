@@ -42,24 +42,33 @@ namespace UserRoleApi.Controllers
                 return StatusCode(400, new { message = ex.Message });
             }
         }
-        [HttpDelete("DeleteRoleFromUser")]
-        public async Task<ActionResult> DeleteRoleFromUser(Guid userId)
+        [HttpDelete]
+        public async Task<ActionResult> DeleteUseRoles(Guid userid)
         {
+
             try
             {
-                var roleUser = await _context.roleuser
-                    .FirstOrDefaultAsync(ru => ru.UserId == userId);
-                if (roleUser != null)
+                var deltedUserRoles = await _context.roleuser
+                    .Where(ru => ru.UserId == userid)
+                    .ToListAsync();
+
+                if (deltedUserRoles != null)
                 {
-                    _context.roleuser.Remove(roleUser);
+                    foreach (var i in deltedUserRoles)
+                    {
+                        _context.roleuser.Remove(i);
+                    }
+
                     await _context.SaveChangesAsync();
-                    return Ok(new { message = "Sikeres törlés!", result = roleUser });
+
+                    return Ok(new { message = "Sikeres törlés.", result = deltedUserRoles });
                 }
-                return NotFound(new { message = "Nem található a megadott összerendelés!", result = "" });
+
+                return NotFound(new { message = "nincs ilyn id.", result = deltedUserRoles });
             }
             catch (Exception ex)
             {
-                return StatusCode(400, new { message = ex.Message });
+                return StatusCode(400, new { message = ex.Message, result = "" });
             }
         }
     }
